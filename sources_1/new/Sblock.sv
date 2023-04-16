@@ -1,8 +1,7 @@
-
 module Sblock(
 	input logic wr_en,
-	input logic [2:0]  left_i,
-	input logic [2:0]  up_i,
+	input wire [2:0]  left_i,
+	input wire [2:0]  up_i,
 	output wire [2:0]  right_o, // using wire here, otherwise VCS gives error
 	output wire [2:0]  down_o,
 	input logic [17:0] bits // 9(dots)*2(bits/dot)

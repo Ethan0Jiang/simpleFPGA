@@ -1,11 +1,10 @@
-
 module Cblock(
 	input logic        wr_en,
-	input logic [2:0]  left_i,
+	input wire [2:0]  left_i,
 	output wire        up_o,
-	input logic        up_i,
+	input wire        up_i,
 	output wire [2:0]  right_o, // using wire here, otherwise VCS gives error
-	input logic        down_i,
+	input wire        down_i,
 	output wire        down_o,
 	input logic [17:0] bits // 6(dots)*3(bits/dot)
 );

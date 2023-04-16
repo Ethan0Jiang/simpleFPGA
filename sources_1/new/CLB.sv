@@ -1,37 +1,15 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 04/13/2023 04:48:45 PM
-// Design Name: 
-// Module Name: CLB
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
-
 module CLB(
     input logic clk_i,
     input logic wr_en,
-    input logic up_i,
-    input logic down_i,
-    input logic right_i,
-    input logic left_i,
+    input wire up_i,
+    input wire down_i,
+    input wire right_i,
+    input wire left_i,
     input logic [22:0] bits, //  22:19 out_sel,  18 LUTorDFF_mux,  17:16 DFF_en_mux, 15:0 lut
-    output logic up_o,
-    output logic down_o,
-    output logic right_o,
-    output logic left_o
+    output wire up_o,
+    output wire down_o,
+    output wire right_o,
+    output wire left_o
     );
     
 //    logic [3:0] red;    // output at: 3up, 2down, 1right, 0left 
@@ -47,7 +25,7 @@ module CLB(
     logic [3:0] lut_addr;
     logic ff_en;
     always_latch begin 
-        if (wr_en&clk_i) begin
+        if (wr_en) begin
 //            red = bits[26:23];
 //            green = bits[22:19];
             out_sel = bits[22:19];
