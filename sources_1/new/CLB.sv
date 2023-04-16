@@ -27,7 +27,7 @@ module CLB(
     input logic down_i,
     input logic right_i,
     input logic left_i,
-    input logic [22:0] bits, //  22:19 out_sel  18 LUTorDFF_mux  17:16 DFF_en_mux 15:0 lut
+    input logic [22:0] bits, //  22:19 out_sel,  18 LUTorDFF_mux,  17:16 DFF_en_mux, 15:0 lut
     output logic up_o,
     output logic down_o,
     output logic right_o,
@@ -36,9 +36,9 @@ module CLB(
     
 //    logic [3:0] red;    // output at: 3up, 2down, 1right, 0left 
 //    logic [3:0] green;  // output at: 3up, 2down, 1right, 0left  
-    logic [3:0] out_sel;
-    logic o_mux_ctrl;
-    logic [1:0] ff_en_ctrl;
+    logic [3:0] out_sel;  // if 1 , connect to sig out if 0, direct input to output
+    logic o_mux_ctrl;     // if 1 luts, if 0 ff
+    logic [1:0] ff_en_ctrl; // 00 use left input, 01 right, 10 alway_1, 11 up
     logic [15:0] lut;
     logic lut_out;
     logic ff_out;
