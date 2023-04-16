@@ -139,3 +139,4 @@ module CLB_tb;
     $display("Testbench finished");
     $finish;
   end
+endmodule
