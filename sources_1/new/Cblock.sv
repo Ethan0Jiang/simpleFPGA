@@ -65,12 +65,19 @@ module Cblock(
 	wire H_0, H_1, H_2;
 	wire V_00, V_01, V_10, V_11;
 
-	assign H_2 = left_i[2];
-	assign right_o[2] = H_2;
-	assign H_1 = left_i[1];
-	assign right_o[1] = H_1;
-	assign H_0 = left_i[0];
-	assign right_o[0] = H_0;
+//	assign H_2 = left_i[2];
+//	assign right_o[2] = H_2;
+//	assign H_1 = left_i[1];
+//	assign right_o[1] = H_1;
+//	assign H_0 = left_i[0];
+//	assign right_o[0] = H_0;
+	buf(H_2,left_i[2]);
+	buf(H_1,left_i[1]);
+	buf(H_0,left_i[0]);
+
+	buf(right_o[2],H_2);
+	buf(right_o[1],H_1);
+	buf(right_o[0],H_0);
 
 	//     out     in         enable(high)
 	bufif1(V_01, up_i, dot_ctrl_V[2]);

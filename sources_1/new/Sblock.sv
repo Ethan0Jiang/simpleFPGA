@@ -14,6 +14,10 @@ module Sblock(
 			dot_ctrl_V = bits[8:0];
 		end
 	end
+	//always_ff (@posedge wr_en) begin
+	//	dot_ctrl_H <= bits[17:9];
+	//	dot_ctrl_V <= bits[8:0];
+	//end
 
 	//         port_in        port_in        port_in
 	//

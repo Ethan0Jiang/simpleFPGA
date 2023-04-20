@@ -34,7 +34,7 @@ module Tile(
 //                | |           |  |  |
 //           lc_V_i,cl_V_o       sc_V_o        
         
-    CLB(
+    CLB CLB0(
         .clk_i(clk_i),
         .wr_en(en),
         .up_i(cl_V_i),
@@ -70,7 +70,7 @@ module Tile(
         .bits(bits[35:18]) // 6(dots)*3(bits/dot)  18
     );
     
-    Sblock(
+    Sblock S0(
         .wr_en(en),
         .left_i(Cbl_S),  // 3
         .up_i(Ctr_S),    // 3
