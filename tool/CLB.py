@@ -104,8 +104,10 @@ class LUT:
         self.lut_bits = self.evaluate_boolean_eqn(equation)
         s_string = ''.join(str(x) for x in s)
 
-        
         self.label.config(text="Current Bitstream: "+s_string)
+        window.clipboard_clear()
+        window.clipboard_append(s_string)
+
 
 
     def evaluate_boolean_eqn(self, eq_str):
