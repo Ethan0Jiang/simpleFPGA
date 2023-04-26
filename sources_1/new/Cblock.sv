@@ -14,7 +14,7 @@ module Cblock(
 	logic [2:0] dot_ctrl_DR; 
 	logic [2:0] dot_ctrl_UR; 
 	logic [2:0] dot_ctrl_LD; 
-	always_ff(@posedge clk) begin
+	always_ff @(posedge clk) begin
 		if (wr_en) begin
 			//Vertical, LeftUp, DownRight, UpRight, LeftDown
 			dot_ctrl_V <= bits[17:12];

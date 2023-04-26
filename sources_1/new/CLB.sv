@@ -24,7 +24,7 @@ module CLB(
     
     logic [3:0] lut_addr;
     logic ff_en;
-    always_ff(@posedge clk) begin
+    always_ff @(posedge clk) begin
 		if (wr_en) begin
             out_sel <= bits[22:19];
             o_mux_ctrl <= bits[18];

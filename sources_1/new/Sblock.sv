@@ -9,7 +9,7 @@ module Sblock(
 );
 	logic [8:0] dot_ctrl_H; //should synthesize to DLH std cell (high enable latch)
 	logic [8:0] dot_ctrl_V; //should synthesize to DLH std cell (high enable latch)
-	always_ff(@posedge clk) begin
+	always_ff @(posedge clk) begin
 		if (wr_en) begin
 			dot_ctrl_H <= bits[17:9];
 			dot_ctrl_V <= bits[8:0];
