@@ -61,45 +61,49 @@ module Cblock(
 	// CLB may use DR/UR to get in the highway
 	// CLB may use LU/LD to get off the highway
 	// The highway itself's connection is controlled by Sblock
-	
-	wire H_0, H_1, H_2;
-	wire V_00, V_01, V_10, V_11;
 
-//	assign H_2 = left_i[2];
-//	assign right_o[2] = H_2;
-//	assign H_1 = left_i[1];
-//	assign right_o[1] = H_1;
-//	assign H_0 = left_i[0];
-//	assign right_o[0] = H_0;
-	buf(H_2,left_i[2]);
-	buf(H_1,left_i[1]);
-	buf(H_0,left_i[0]);
 
-	buf(right_o[2],H_2);
-	buf(right_o[1],H_1);
-	buf(right_o[0],H_0);
+    always_comb begin
+        up_o = 1'bZ;
+        casez ({dot_ctrl_LU[2:0],dot_ctrl_V[5:3]})
+            6'b100_???: up_o = left_i[2];
+            6'b010_???: up_o = left_i[1];
+            6'b001_???: up_o = left_i[0];
+            6'b000_111: up_o = down_i;
+            default : up_o  = 1'bZ;
+        endcase
 
-	//     out     in         enable(high)
-	bufif1(V_01, up_i, dot_ctrl_V[2]);
-	bufif1(V_00, V_01, dot_ctrl_V[1]);
-	bufif1(down_o, V_00, dot_ctrl_V[0]);
-	bufif1(V_10, down_i, dot_ctrl_V[5]);
-	bufif1(V_11, V_10, dot_ctrl_V[4]);
-	bufif1(up_o, V_11, dot_ctrl_V[3]);
+        down_o = 1'bZ;
+        casez ({dot_ctrl_LD[2:0],dot_ctrl_V[2:0]})
+            6'b100_???: down_o = left_i[2];
+            6'b010_???: down_o = left_i[1];
+            6'b001_???: down_o = left_i[0];
+            6'b000_111: down_o = up_i;
+            default : down_o  = 1'bZ;
+        endcase
 
-	bufif1(up_o, left_i[2], dot_ctrl_LU[2]);
-	bufif1(V_11, left_i[1], dot_ctrl_LU[1]);
-	bufif1(V_10, left_i[0], dot_ctrl_LU[0]);
-	bufif1(H_2, V_11, dot_ctrl_DR[2]);
-	bufif1(H_1, V_10, dot_ctrl_DR[1]);
-	bufif1(H_0, down_i, dot_ctrl_DR[0]);
+        right_o[2] = left_i[2];
+        case ({dot_ctrl_DR[2],dot_ctrl_UR[2]})
+            2'b10: right_o[2] = down_i;
+            2'b01: right_o[2] = up_i;
+            default : right_o[2]  = left_i[2];
+        endcase
 
-	bufif1(right_o[2], up_i, dot_ctrl_UR[2]);
-	bufif1(right_o[1], V_01, dot_ctrl_UR[1]);
-	bufif1(right_o[0], V_00, dot_ctrl_UR[0]);
-	bufif1(V_01, H_2, dot_ctrl_LD[2]);
-	bufif1(V_00, H_1, dot_ctrl_LD[1]);
-	bufif1(down_o, H_0, dot_ctrl_LD[0]);
+        right_o[1] = left_i[1];
+        case ({dot_ctrl_DR[1],dot_ctrl_UR[1]})
+            2'b10: right_o[1] = down_i;
+            2'b01: right_o[1] = up_i;
+            default : right_o[1]  = left_i[1];
+        endcase
+
+        right_o[0] = left_i[0];
+        case ({dot_ctrl_DR[0],dot_ctrl_UR[0]})
+            2'b10: right_o[0] = down_i;
+            2'b01: right_o[0] = up_i;
+            default : right_o[0]  = left_i[0];
+        endcase
+
+    end
 
 endmodule
 
