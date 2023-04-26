@@ -1,26 +1,27 @@
 module Cblock(
 	input logic        wr_en,
-	input wire [2:0]  left_i,
-	output wire        up_o,
-	input wire        up_i,
-	output wire [2:0]  right_o, // using wire here, otherwise VCS gives error
-	input wire        down_i,
-	output wire        down_o,
-	input logic [17:0] bits // 6(dots)*3(bits/dot)
+	input logic [2:0]  left_i,
+	output logic        up_o,
+	input logic        up_i,
+	output logic [2:0]  right_o, // using wire here, otherwise VCS gives error
+	input logic        down_i,
+	output logic        down_o,
+	input logic [17:0] bits, // 6(dots)*3(bits/dot)
+	input logic clk
 );
 	logic [5:0] dot_ctrl_V; //should synthesize to DLH std cell (high enable latch)
 	logic [2:0] dot_ctrl_LU; 
 	logic [2:0] dot_ctrl_DR; 
 	logic [2:0] dot_ctrl_UR; 
 	logic [2:0] dot_ctrl_LD; 
-	always_latch begin
+	always_ff(@posedge clk) begin
 		if (wr_en) begin
 			//Vertical, LeftUp, DownRight, UpRight, LeftDown
-			dot_ctrl_V = bits[17:12];
-			dot_ctrl_LU = bits[11:9];
-			dot_ctrl_DR = bits[8:6];
-			dot_ctrl_UR = bits[5:3];
-			dot_ctrl_LD = bits[2:0];
+			dot_ctrl_V <= bits[17:12];
+			dot_ctrl_LU <= bits[11:9];
+			dot_ctrl_DR <= bits[8:6];
+			dot_ctrl_UR <= bits[5:3];
+			dot_ctrl_LD <= bits[2:0];
 		end
 	end
 

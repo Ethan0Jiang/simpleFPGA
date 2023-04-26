@@ -1,25 +1,25 @@
 module Tile(
-    input logic clk_i,
+    input logic clk,
     input logic wr_en,
     input logic [76:0] bits,
-    input wire cl_V_i,  // to the CLB
-    input wire cl_H_i,
-    input wire lc_V_i,   // to the bottom left C
-    input wire lc_H_i,   // to the top right C
-    input wire [2:0] sc_V_i,  // to the CBlock
-    input wire [2:0] sc_H_i,
-    output wire lc_V_o,   // CLB to up
-    output wire lc_H_o,   // CLB to left
-    output wire cl_V_o,   // bottom left out
-    output wire cl_H_o,   // top right out
-    output wire [2:0] sc_V_o,
-    output wire [2:0] sc_H_o
+    input logic cl_V_i,  // to the CLB
+    input logic cl_H_i,
+    input logic lc_V_i,   // to the bottom left C
+    input logic lc_H_i,   // to the top right C
+    input logic [2:0] sc_V_i,  // to the CBlock
+    input logic [2:0] sc_H_i,
+    output logic lc_V_o,   // CLB to up
+    output logic lc_H_o,   // CLB to left
+    output logic cl_V_o,   // bottom left out
+    output logic cl_H_o,   // top right out
+    output logic [2:0] sc_V_o,
+    output logic [2:0] sc_H_o
     );
     
-    logic en = wr_en&clk_i;
-    wire L_Ctr, L_Cbl;  // internal connection from L to C
-    wire Ctr_L, Cbl_L;  // internal connection from C to L
-    wire [2:0] Ctr_S, Cbl_S;
+    logic en = wr_en;
+    logic L_Ctr, L_Cbl;  // internal connection from L to C
+    logic Ctr_L, Cbl_L;  // internal connection from C to L
+    logic [2:0] Ctr_S, Cbl_S;
 
 //           lc_V_o,cl_V_i       sc_V_i
 //               _|_|_       ___|__|__|___
@@ -35,7 +35,7 @@ module Tile(
 //           lc_V_i,cl_V_o       sc_V_o        
         
     CLB CLB0(
-        .clk_i(clk_i),
+        .clk(clk),
         .wr_en(en),
         .up_i(cl_V_i),
         .down_i(Cbl_L),
@@ -49,6 +49,7 @@ module Tile(
     );
     
     Cblock BL(  // bottom left
+        .clk(clk),
         .wr_en(en),
         .left_i(sc_H_i),      // 3
         .up_o(Cbl_L),
@@ -60,6 +61,7 @@ module Tile(
     );
 
     Cblock TR(  // top right
+        .clk(clk),
         .wr_en(en),
         .left_i(sc_V_i),      // 3
         .up_o(Ctr_L),
@@ -71,6 +73,7 @@ module Tile(
     );
     
     Sblock S0(
+        .clk(clk),
         .wr_en(en),
         .left_i(Cbl_S),  // 3
         .up_i(Ctr_S),    // 3

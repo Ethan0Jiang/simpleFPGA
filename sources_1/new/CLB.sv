@@ -1,15 +1,15 @@
 module CLB(
-    input logic clk_i,
+    input logic clk,
     input logic wr_en,
-    input wire up_i,
-    input wire down_i,
-    input wire right_i,
-    input wire left_i,
+    input logic up_i,
+    input logic down_i,
+    input logic right_i,
+    input logic left_i,
     input logic [22:0] bits, //  22:19 out_sel,  18 LUTorDFF_mux,  17:16 DFF_en_mux, 15:0 lut
-    output wire up_o,
-    output wire down_o,
-    output wire right_o,
-    output wire left_o
+    output logic up_o,
+    output logic down_o,
+    output logic right_o,
+    output logic left_o
     );
     
 //    logic [3:0] red;    // output at: 3up, 2down, 1right, 0left 
@@ -24,14 +24,12 @@ module CLB(
     
     logic [3:0] lut_addr;
     logic ff_en;
-    always_latch begin 
-        if (wr_en) begin
-//            red = bits[26:23];
-//            green = bits[22:19];
-            out_sel = bits[22:19];
-            o_mux_ctrl = bits[18];
-            ff_en_ctrl = bits[17:16];
-            lut = bits[15:0];
+    always_ff(@posedge clk) begin
+		if (wr_en) begin
+            out_sel <= bits[22:19];
+            o_mux_ctrl <= bits[18];
+            ff_en_ctrl <= bits[17:16];
+            lut <= bits[15:0];
         end
     end
     
@@ -74,6 +72,6 @@ module CLB(
         endcase
     end
     
-    always_ff @(posedge clk_i) if (ff_en) ff_out <= lut_out;
+    always_ff @(posedge clk) if (ff_en) ff_out <= lut_out;
     
 endmodule
