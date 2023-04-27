@@ -16,7 +16,9 @@ module Tile(
     output logic [2:0] sc_H_o
     );
     
-    logic en = wr_en;
+    //logic en = wr_en;
+    wire en;
+    assign en = wr_en;
     logic L_Ctr, L_Cbl;  // internal connection from L to C
     logic Ctr_L, Cbl_L;  // internal connection from C to L
     logic [2:0] Ctr_S, Cbl_S;
