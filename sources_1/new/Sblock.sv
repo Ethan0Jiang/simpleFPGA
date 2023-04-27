@@ -50,12 +50,12 @@ module Sblock(
 	logic V_00, V_01, V_10, V_11, V_20, V_21;
 
 	assign right_o[2] = dot_ctrl_H[6] ? left_i[2] : 1'bZ;
-	assign right_o[1] = dot_ctrl_H[3] ? left_i[2] : 1'bZ;
-	assign right_o[0] = dot_ctrl_H[0] ? left_i[2] : 1'bZ;
+	assign right_o[1] = dot_ctrl_H[3] ? left_i[1] : 1'bZ;
+	assign right_o[0] = dot_ctrl_H[0] ? left_i[0] : 1'bZ;
 
 	assign down_o[2] = dot_ctrl_V[6] ? left_i[2] : 1'bZ;
-	assign down_o[1] = dot_ctrl_V[3] ? left_i[2] : 1'bZ;
-	assign down_o[0] = dot_ctrl_V[0] ? left_i[2] : 1'bZ;
+	assign down_o[1] = dot_ctrl_V[3] ? left_i[1] : 1'bZ;
+	assign down_o[0] = dot_ctrl_V[0] ? left_i[0] : 1'bZ;
 
 endmodule
 
