@@ -9,7 +9,7 @@ class Sblock:
              borderwidth=1
             )
         self.frame.pack()
-        self.l = 160
+        self.l = 320
         self.canvas = tk.Canvas(master = self.frame, width=self.l, height=self.l)
         self.canvas.pack(side=tk.LEFT)
         self.H0 = self.canvas.create_line(0,self.l/4,self.l,self.l/4, fill='white', arrow='last', width=4)
