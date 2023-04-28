@@ -1,8 +1,8 @@
 import tkinter as tk
 
-class dot_down:
+class dot_left: #was down
     def __init__(self, master, row, column):
-        self.bits = [0,0,0] # UR, LD, V
+        self.bits = [0,0,0] # UR, LD, V, now is UL, RD, H
         self.frame = tk.Frame(
              master=master,
              relief=tk.RAISED,
@@ -11,11 +11,11 @@ class dot_down:
         #self.frame.pack()
         self.frame.grid(row=row, column=column)
         self.canvas = tk.Canvas(master = self.frame, width=100, height=100)
-        self.canvas.pack(side=tk.LEFT)
-        self.UR = self.canvas.create_line(50,0,100,50, fill='white', arrow='last', width=4)
-        self.LD = self.canvas.create_line(0,50,50,100, fill='white', arrow='last', width=4)
-        self.V = self.canvas.create_line(50,0,50,100, fill='white', arrow='last', width=4)
-        self.highway = self.canvas.create_line(0,50,100,50, fill='brown', arrow='last', width=6)
+        self.canvas.pack(side=tk.TOP)
+        self.UR = self.canvas.create_line(100,50,50,100, fill='white', arrow='last', width=4)
+        self.LD = self.canvas.create_line(50,0,0,50, fill='white', arrow='last', width=4)
+        self.V = self.canvas.create_line(100,50,0,50, fill='white', arrow='last', width=4)
+        self.highway = self.canvas.create_line(50,0,50,100, fill='brown', arrow='last', width=6)
         self.btn_merge = tk.Button(master=self.frame, text="merge", command=self.togglemerge)
         self.btn_merge.pack()
         self.btn_exit = tk.Button(master=self.frame, text="exit", command=self.toggleexit)
@@ -53,9 +53,9 @@ class dot_down:
     def get_bits_V(self):
         return self.bits[2]
 
-class dot_up:
+class dot_right: #was up
     def __init__(self, master, row, column):
-        self.bits = [0,0,0] # LU, DR, V
+        self.bits = [0,0,0] # was LU, DR, V, now TR, LD, H
         self.frame = tk.Frame(
              master=master,
              relief=tk.RAISED,
@@ -64,11 +64,11 @@ class dot_up:
         #self.frame.pack()
         self.frame.grid(row=row, column=column)
         self.canvas = tk.Canvas(master = self.frame, width=100, height=100)
-        self.canvas.pack(side=tk.RIGHT)
-        self.LU = self.canvas.create_line(0,50,50,0, fill='white', arrow='last', width=4)
-        self.DR = self.canvas.create_line(50,100,100,50, fill='white', arrow='last', width=4)
-        self.V = self.canvas.create_line(50,100,50,0, fill='white', arrow='last', width=4)
-        self.highway = self.canvas.create_line(0,50,100,50, fill='brown', arrow='last', width=6)
+        self.canvas.pack(side=tk.BOTTOM)
+        self.LU = self.canvas.create_line(50,0,100,50, fill='white', arrow='last', width=4)
+        self.DR = self.canvas.create_line(0,50,50,100, fill='white', arrow='last', width=4)
+        self.V = self.canvas.create_line(0,50,100,50, fill='white', arrow='last', width=4)
+        self.highway = self.canvas.create_line(50,0,50,100, fill='brown', arrow='last', width=6)
         self.btn_merge = tk.Button(master=self.frame, text="merge", command=self.togglemerge)
         self.btn_merge.pack()
         self.btn_exit = tk.Button(master=self.frame, text="exit", command=self.toggleexit)
@@ -106,43 +106,43 @@ class dot_up:
     def get_bits_V(self):
         return self.bits[2]
 
-class Cblock:
+class Cblock2:
     def __init__(self, master):
-        self.updot0 = dot_up(master, 0, 0)
-        self.updot1 = dot_up(master, 1, 0)
-        self.updot2 = dot_up(master, 2, 0)
-        self.downdot0 = dot_down(master, 0, 1)
-        self.downdot1 = dot_down(master, 1, 1)
-        self.downdot2 = dot_down(master, 2, 1)
+        self.rightdot0 = dot_right(master, 0, 0)
+        self.rightdot1 = dot_right(master, 0, 1)
+        self.rightdot2 = dot_right(master, 0, 2)
+        self.leftdot0 = dot_left(master, 1, 0)
+        self.leftdot1 = dot_left(master, 1, 1)
+        self.leftdot2 = dot_left(master, 1, 2)
         self.label_bit = tk.Label(master=master, text="Current Bitstream:000000000000000000")
-        self.label_bit.grid(row=3, columnspan=2)
+        self.label_bit.grid(row=3, columnspan=3)
         self.copy_btn = tk.Button(master=master, text="generate", command=self.cpy)
-        self.copy_btn.grid(row=4, columnspan=2)
+        self.copy_btn.grid(row=4, columnspan=3)
 
     def get_bits(self):
         V = []
-        V.append(self.updot2.get_bits_V())
-        V.append(self.updot1.get_bits_V())
-        V.append(self.updot0.get_bits_V())
-        V.append(self.downdot0.get_bits_V())
-        V.append(self.downdot1.get_bits_V())
-        V.append(self.downdot2.get_bits_V())
+        V.append(self.rightdot0.get_bits_V())
+        V.append(self.rightdot1.get_bits_V())
+        V.append(self.rightdot2.get_bits_V())
+        V.append(self.leftdot2.get_bits_V())
+        V.append(self.leftdot1.get_bits_V())
+        V.append(self.leftdot0.get_bits_V())
         LU = []
-        LU.append(self.updot0.get_bits_LU())
-        LU.append(self.updot1.get_bits_LU())
-        LU.append(self.updot2.get_bits_LU())
+        LU.append(self.rightdot2.get_bits_LU())
+        LU.append(self.rightdot1.get_bits_LU())
+        LU.append(self.rightdot0.get_bits_LU())
         DR = []
-        DR.append(self.updot0.get_bits_DR())
-        DR.append(self.updot1.get_bits_DR())
-        DR.append(self.updot2.get_bits_DR())
+        DR.append(self.rightdot2.get_bits_DR())
+        DR.append(self.rightdot1.get_bits_DR())
+        DR.append(self.rightdot0.get_bits_DR())
         UR = []
-        UR.append(self.downdot0.get_bits_UR())
-        UR.append(self.downdot1.get_bits_UR())
-        UR.append(self.downdot2.get_bits_UR())
+        UR.append(self.leftdot2.get_bits_UR())
+        UR.append(self.leftdot1.get_bits_UR())
+        UR.append(self.leftdot0.get_bits_UR())
         LD = []
-        LD.append(self.downdot0.get_bits_LD())
-        LD.append(self.downdot1.get_bits_LD())
-        LD.append(self.downdot2.get_bits_LD())
+        LD.append(self.leftdot2.get_bits_LD())
+        LD.append(self.leftdot1.get_bits_LD())
+        LD.append(self.leftdot0.get_bits_LD())
         return ''.join(str(n)for n in (V+LU+DR+UR+LD))
 
     def cpy(self):
@@ -152,5 +152,5 @@ class Cblock:
         #window.clipboard_append(s)
 
 #window = tk.Tk()
-#cblock = Cblock(window)
+#cblock = Cblock2(window)
 #window.mainloop()

@@ -18,7 +18,7 @@ class LUT:
              relief=tk.RAISED,
              borderwidth=1
             )
-        
+
         self.frame_bits = tk.Frame(
              master=master,
              relief=tk.RAISED,
@@ -32,7 +32,7 @@ class LUT:
 
         self.frame_bool.grid(row=1, column=0)
         self.entry = tk.Entry(master = self.frame_bool)
-        Calculate = tk.Button(master=self.frame_bool, text="Calculate(Double Click)", command=self.togglekeep)
+        Calculate = tk.Button(master=self.frame_bool, text="Calculate", command=self.togglekeep)
         self.entry.pack(fill=tk.Y, side=tk.LEFT)
         Calculate.pack(fill=tk.Y, side=tk.LEFT)
 
@@ -71,7 +71,7 @@ class LUT:
         self.ff_output = self.canvas.create_rectangle(200, 80, 240, 100, fill='white')
         self.txt_ff_out = self.canvas.create_text(220, 90, text='FF_OUT')
         for i in range(len(self.FF_ins)):
-            self.canvas.tag_bind(self.FF_ins[i], '<Button-1>', lambda event, 
+            self.canvas.tag_bind(self.FF_ins[i], '<Button-1>', lambda event,
                                 item=self.FF_clr[i], value=i: self.toggle_mux_en(item, value))
 
         # draw the MUX block
@@ -93,20 +93,21 @@ class LUT:
             self.MUX_ins.append(txt_o)
             self.MUX_clr.append(mux_color)
         for i in range(len(self.MUX_ins)):
-            self.canvas.tag_bind(self.MUX_ins[i], '<Button-1>', lambda event, 
+            self.canvas.tag_bind(self.MUX_ins[i], '<Button-1>', lambda event,
                                 item=self.MUX_clr[i], value=i: self.toggle_output(item, value))  # select which output enable
         self.canvas.tag_bind(self.sel_text, '<Button-1>', self.toggle_mux_inputs)  # select mux input
 
-    
+
     def togglekeep(self):
-        s = self.o_sel_bits + self.mux_sel_bits + self.ff_en_bits + self.lut_bits
+        #s = self.o_sel_bits + self.mux_sel_bits + self.ff_en_bits + self.lut_bits
         equation = self.entry.get()
         self.lut_bits = self.evaluate_boolean_eqn(equation)
+        s = self.get_bits()
         s_string = ''.join(str(x) for x in s)
 
         self.label.config(text="Current Bitstream: "+s_string)
-        window.clipboard_clear()
-        window.clipboard_append(s_string)
+        #window.clipboard_clear()
+        #window.clipboard_append(s_string)
 
 
 
@@ -123,13 +124,13 @@ class LUT:
         return output
 
 
-    
+
     def get_bits(self):
         bits = []
-        bits.append(self.o_sel_bits)
-        bits.append(self.mux_sel_bits)
-        bits.append(self.ff_en_bits)
-        bits.append(self.lut_bits)
+        bits.extend(self.o_sel_bits)
+        bits.extend(self.mux_sel_bits)
+        bits.extend(self.ff_en_bits)
+        bits.extend(self.lut_bits)
         return bits
 
     def toggle_output(self, item, value):
@@ -182,7 +183,7 @@ class LUT:
     #         self.mux_sel_bits[0] = 0
     #     else:
     #         self.mux_sel_bits[0] = 1
-    
-window = tk.Tk()
-updot0 = LUT(window)
-window.mainloop()
+
+#window = tk.Tk()
+#updot0 = LUT(window)
+#window.mainloop()
