@@ -60,14 +60,14 @@ module Tile_tb;
 
   // Stimulus
     initial begin
-//         `ifndef PRE_SYN
-//         $sdf_annotate("Tile.sdf", dut); // dut name
-//         `endif
-//         $fsdbDumpfile("Tile.fsdb");
-//         $fsdbDumpvars(0, Tile_tb);  // module_tb name
-//         $dumpfile("Tile.vcd");
-//         $dumpvars();
-      $dumpfile("dump.vcd"); $dumpvars;
+        `ifndef PRE_SYN
+        $sdf_annotate("Tile.sdf", dut); // dut name
+        `endif
+        $fsdbDumpfile("Tile.fsdb");
+        $fsdbDumpvars(0, Tile_tb);  // module_tb name
+        $dumpfile("Tile.vcd");
+        $dumpvars();
+//       $dumpfile("dump.vcd"); $dumpvars;
     end
 
     // 77 bits: CLB BL TR S
@@ -94,7 +94,7 @@ module Tile_tb;
         input clk
         ); 
       for (int i = 0; i < 20; i++) begin
-		    lc_V_o <= $urandom_range(0, 2); 
+	    lc_V_o <= $urandom_range(0, 2); 
             lc_H_o <= $urandom_range(0, 2);
             cl_V_o <= $urandom_range(0, 2);
             cl_H_o <= $urandom_range(0, 2);
@@ -106,7 +106,7 @@ module Tile_tb;
             assert (dut.CLB0.up_i === cl_V_i);
             assert (dut.CLB0.down_i === sc_H_i[2]);
             assert (dut.CLB0.right_i === sc_V_i[2]);
-          	assert (dut.CLB0.left_i === cl_H_i);
+	    assert (dut.CLB0.left_i === cl_H_i);
 
             assert (cl_H_o === sc_V_i[1]);
 
