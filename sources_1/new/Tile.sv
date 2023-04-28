@@ -56,7 +56,7 @@ module Tile(
         .left_i(sc_H_i),      // 3
         .up_o(Cbl_L),
         .up_i(L_Cbl),
-        .right_o(Cbl_S), // using wire here, otherwise VCS gives error  3
+        .right_o(Cbl_S), 
         .down_i(lc_V_i),
         .down_o(cl_V_o),
         .bits(bits[53:36]) // 6(dots)*3(bits/dot)  18
@@ -65,12 +65,12 @@ module Tile(
     Cblock TR(  // top right
         .clk(clk),
         .wr_en(en),
-        .left_i(sc_V_i),      // 3
-        .up_o(Ctr_L),
-        .up_i(L_Ctr),
-        .right_o(Ctr_S), // using wire here, otherwise VCS gives error  3
-        .down_i(lc_H_i),
-        .down_o(cl_H_o),
+        .left_i({sc_V_i[0], sc_V_i[1], sc_V_i[2]}),      // 3
+        .up_o(cl_H_o),
+        .up_i(lc_H_i),
+      .right_o({Ctr_S[0], Ctr_S[1], Ctr_S[2]}), 
+        .down_i(L_Ctr), 
+        .down_o(Ctr_L), 
         .bits(bits[35:18]) // 6(dots)*3(bits/dot)  18
     );
     

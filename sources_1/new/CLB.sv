@@ -33,17 +33,6 @@ module CLB(
         end
     end
     
-////  The following could be replace by mux:
-//    bufif1(up_o, sig_out, red[3]);
-//    bufif1(down_o, sig_out, red[2]);
-//    bufif1(right_o, sig_out, red[1]);
-//    bufif1(left_o, sig_out, red[0]);
-    
-//    bufif1(up_o, down_i, green[3]);
-//    bufif1(down_o, up_i, green[2]);
-//    bufif1(right_o, left_i, green[1]);
-//    bufif1(left_o, right_i, green[0]);
-    
     assign up_o     = out_sel[3] ? sig_out : down_i;
     assign down_o   = out_sel[2] ? sig_out : up_i;
     assign right_o  = out_sel[1] ? sig_out : left_i;
@@ -54,14 +43,14 @@ module CLB(
     always_comb begin
         lut_out = 0;
         case(lut_addr)
-            4'd00: lut_out=lut[0];4'd01: lut_out=lut[1];
-            4'd02: lut_out=lut[2];4'd03: lut_out=lut[3];
-            4'd04: lut_out=lut[4];4'd05: lut_out=lut[5];
-            4'd06: lut_out=lut[6];4'd07: lut_out=lut[7];
-            4'd08: lut_out=lut[8];4'd09: lut_out=lut[9];
-            4'd10: lut_out=lut[10];4'd11: lut_out=lut[11];
-            4'd12: lut_out=lut[12];4'd13: lut_out=lut[13];
-            4'd14: lut_out=lut[14];4'd15: lut_out=lut[15];
+            4'd15: lut_out=lut[0];4'd14: lut_out=lut[1];
+            4'd13: lut_out=lut[2];4'd12: lut_out=lut[3];
+            4'd11: lut_out=lut[4];4'd10: lut_out=lut[5];
+            4'd09: lut_out=lut[6];4'd08: lut_out=lut[7];
+            4'd07: lut_out=lut[8];4'd06: lut_out=lut[9];
+            4'd05: lut_out=lut[10];4'd04: lut_out=lut[11];
+            4'd03: lut_out=lut[12];4'd02: lut_out=lut[13];
+            4'd01: lut_out=lut[14];4'd00: lut_out=lut[15];
         endcase
         ff_en = 1;
         case(ff_en_ctrl)        // Careful with the ff_en_ctrl bits
