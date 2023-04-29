@@ -1,5 +1,4 @@
 module CLB_tb;
-
   // Inputs
   logic clk_i;
   logic wr_en;

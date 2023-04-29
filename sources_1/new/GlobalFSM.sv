@@ -6,14 +6,8 @@ module GlobalFSM #(parameter Dim = 4) (
     input logic bit_v_i,
     output logic bit_r_o,
     output logic done_o,
-    output logic [76:0] data_row0,
-    output logic [76:0] data_row1,
-    output logic [76:0] data_row2,
-    output logic [76:0] data_row3,
-    output logic col_0_en_o,
-    output logic col_1_en_o,
-    output logic col_2_en_o,
-    output logic col_3_en_o
+    output logic [3:0][76:0] data_row,
+    output logic [3:0] col_en_o
     );
     
     enum bit [2:0] {S0, S1, S2, S3} ps, ns;
@@ -47,12 +41,12 @@ module GlobalFSM #(parameter Dim = 4) (
             S3: begin   done_o = 1; end            
         endcase
         
-        col_0_en_o=0; col_1_en_o=0; col_2_en_o=0; col_3_en_o=0;
+        col_en_o[0]=0; col_en_o[1]=0; col_en_o[2]=0; col_en_o[3]=0;
         if (dec_en) begin
-            if      (col_num==0) col_0_en_o = 1;
-            else if (col_num==1) col_1_en_o = 1;
-            else if (col_num==2) col_2_en_o = 1;
-            else if (col_num==3) col_3_en_o = 1;
+            if      (col_num==0) col_en_o[0] = 1;
+            else if (col_num==1) col_en_o[1] = 1;
+            else if (col_num==2) col_en_o[2] = 1;
+            else if (col_num==3) col_en_o[3] = 1;
         end
     end
     
@@ -63,10 +57,10 @@ module GlobalFSM #(parameter Dim = 4) (
             ps <= ns;
         end
         if (ff_en) begin
-            data_row3 <= data_row2;
-            data_row2 <= data_row1;
-            data_row1 <= data_row0;
-            data_row0 <= bit_i;
+            data_row[3] <= data_row[2];
+            data_row[2] <= data_row[1];
+            data_row[1] <= data_row[0];
+            data_row[0] <= bit_i;
         end
         if (ps==S0&ff_en) begin
             col_num <= 0;
