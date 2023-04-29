@@ -21,14 +21,24 @@ class Tile:
         self.sframe.grid(row=1, column=1)
         self.gen_btn = tk.Button(master=master, text="generate", command=self.generate)
         self.gen_btn.grid(row=2,columnspan=2)
+        self.label_bit = tk.Label(master=master, text="Current Bitstream:")
+        self.label_bit.grid(row=3, columnspan=2)
 
     def generate(self):
         self.cblock0.cpy()
         self.cblock1.cpy()
         self.sblock.generate()
         self.clb.togglekeep()
+        s = self.get_bits()
+        self.label_bit.config(text="Current Bitstream:"+s)
+        #window.clipboard_clear()
+        #window.clipboard_append(s)
 
-window = tk.Tk()
-tile = Tile(window)
-window.mainloop()
+    def get_bits(self):
+        return self.clb.get_bits()+self.cblock0.get_bits()+self.cblock1.get_bits()+self.sblock.get_bits()
+
+
+#window = tk.Tk()
+#tile = Tile(window)
+#window.mainloop()
 

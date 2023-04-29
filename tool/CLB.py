@@ -102,8 +102,9 @@ class LUT:
         #s = self.o_sel_bits + self.mux_sel_bits + self.ff_en_bits + self.lut_bits
         equation = self.entry.get()
         self.lut_bits = self.evaluate_boolean_eqn(equation)
-        s = self.get_bits()
-        s_string = ''.join(str(x) for x in s)
+        #s = self.get_bits()
+        #s_string = ''.join(str(x) for x in s)
+        s_string = self.get_bits()
 
         self.label.config(text="Current Bitstream: "+s_string)
         #window.clipboard_clear()
@@ -131,7 +132,8 @@ class LUT:
         bits.extend(self.mux_sel_bits)
         bits.extend(self.ff_en_bits)
         bits.extend(self.lut_bits)
-        return bits
+        bits_string = ''.join(str(x) for x in bits)
+        return bits_string
 
     def toggle_output(self, item, value):
         current_color = self.canvas.itemcget(item, 'fill')
