@@ -1,5 +1,5 @@
 import tkinter as tk
-import CLB
+import CLB2
 import Cblock
 import Cblock2
 import Sblock
@@ -11,7 +11,7 @@ class Tile:
         self.cframe1 = tk.Frame(master=master, relief=tk.RAISED, borderwidth=1)
         self.sframe = tk.Frame(master=master, relief=tk.RAISED, borderwidth=1)
 
-        self.clb = CLB.LUT(self.clbframe)
+        self.clb = CLB2.CLB(self.clbframe)
         self.cblock0 = Cblock.Cblock(self.cframe0)
         self.cblock1 = Cblock2.Cblock2(self.cframe1)
         self.sblock = Sblock.Sblock(self.sframe)
@@ -28,7 +28,8 @@ class Tile:
         self.cblock0.cpy()
         self.cblock1.cpy()
         self.sblock.generate()
-        self.clb.togglekeep()
+        #self.clb.togglekeep()
+        self.clb.generate()
         s = self.get_bits()
         self.label_bit.config(text="Current Bitstream:"+s)
         #window.clipboard_clear()
