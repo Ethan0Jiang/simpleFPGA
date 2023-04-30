@@ -48,6 +48,8 @@ class CLB:
         self.btn_en.pack()
         self.entry = tk.Entry(master = self.frame)
         self.entry.pack(fill=tk.Y)
+        self.label_explain = tk.Label(master=master, text="LUT input order: Up, Right, Left, Down")
+        self.label_explain.pack()
         self.label_bit = tk.Label(master=master, text="Current Bitstream:00000000000000000000000")
         self.label_bit.pack()
         self.copy_btn = tk.Button(master=master, text="generate", command=self.generate)

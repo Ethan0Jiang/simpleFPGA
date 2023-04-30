@@ -6,6 +6,7 @@ import Sblock
 
 class Tile:
     def __init__(self, master):
+        self.master = master
         self.clbframe = tk.Frame(master=master, relief=tk.RAISED, borderwidth=1)
         self.cframe0 = tk.Frame(master=master, relief=tk.RAISED, borderwidth=1)
         self.cframe1 = tk.Frame(master=master, relief=tk.RAISED, borderwidth=1)
@@ -32,6 +33,7 @@ class Tile:
         self.clb.generate()
         s = self.get_bits()
         self.label_bit.config(text="Current Bitstream:"+s)
+        self.master.focus()
         #window.clipboard_clear()
         #window.clipboard_append(s)
 
