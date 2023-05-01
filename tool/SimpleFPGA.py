@@ -30,6 +30,8 @@ class SimpleFPGA:
         self.canvaswrapper.bind_all("<Right>",  lambda event: self.canvaswrapper.xview_scroll(1, "units"))
         self.canvaswrapper.bind_all("<Up>",  lambda event: self.canvaswrapper.yview_scroll(-1, "units"))
         self.canvaswrapper.bind_all("<Down>",  lambda event: self.canvaswrapper.yview_scroll(1, "units"))
+        self.canvaswrapper.bind_all("<MouseWheel>",  lambda event: self.canvaswrapper.yview_scroll(-1*(event.delta), "units"))
+        self.canvaswrapper.bind_all("<Shift-MouseWheel>",  lambda event: self.canvaswrapper.xview_scroll(-1*(event.delta), "units"))
 
         self.menubar = tk.Menu(master = master)
         self.menu = tk.Menu(master = self.menubar, tearoff = 0)
