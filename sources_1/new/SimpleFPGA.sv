@@ -46,11 +46,11 @@ module SimpleFPGA (
                     .wr_en(col_en_o[col]),
                     .bits(data_row[row]),
                     .cl_V_i(cl_V_in[col]),  // input top
-                    .cl_H_i(),              // no input on left side
+                    .cl_H_i(1'b0),              // no input on left side
                     .lc_V_i(lc_V[row][col]),
                     .lc_H_i(lc_H[row][col]),  
                     .sc_V_i(sc_V_in[col]),  // input top
-                    .sc_H_i(),              // left side
+                    .sc_H_i(3'b0),              // left side
                     .lc_V_o(),              // top
                     .lc_H_o(),              // left side
                     .cl_V_o(cl_V[row][col]),  
@@ -82,11 +82,11 @@ module SimpleFPGA (
                     .wr_en(col_en_o[col]),
                     .bits(data_row[row]),
                     .cl_V_i(cl_V[row-1][col]),
-                    .cl_H_i(),              // no input on left side
+                    .cl_H_i(1'b0),              // no input on left side
                     .lc_V_i(lc_V[row][col]),
                     .lc_H_i(lc_H[row][col]),  
                     .sc_V_i(sc_V[row-1][col]),  
-                    .sc_H_i(),              // left side
+                    .sc_H_i(3'b0),              // left side
                     .lc_V_o(lc_V[row-1][col]),
                     .lc_H_o(),              // left side
                     .cl_V_o(cl_V[row][col]),  

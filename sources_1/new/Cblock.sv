@@ -65,22 +65,22 @@ module Cblock(
 
 
     always_comb begin
-        up_o = 1'bZ;
+        up_o = 1'b0;
         casez ({dot_ctrl_LU[2:0],dot_ctrl_V[5:3]})
             6'b100_???: up_o = left_i[2];
             6'b010_???: up_o = left_i[1];
             6'b001_???: up_o = left_i[0];
             6'b000_111: up_o = down_i;
-            default : up_o  = 1'bZ;
+            default : up_o  = 1'b0;
         endcase
 
-        down_o = 1'bZ;
+        down_o = 1'b0;
         casez ({dot_ctrl_LD[2:0],dot_ctrl_V[2:0]})
             6'b100_???: down_o = left_i[2];
             6'b010_???: down_o = left_i[1];
             6'b001_???: down_o = left_i[0];
             6'b000_111: down_o = up_i;
-            default : down_o  = 1'bZ;
+            default : down_o  = 1'b0;
         endcase
 
         right_o[2] = left_i[2];

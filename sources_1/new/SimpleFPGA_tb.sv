@@ -30,7 +30,7 @@ module SimpleFPGA_tb;
     SimpleFPGA dut (.*);
 
   // Clock generation
-    parameter CLOCK_PERIOD=5;
+    parameter CLOCK_PERIOD=50;
     initial begin
         clk <= 0;
         forever #(CLOCK_PERIOD/2) clk <= ~clk; // Forever toggle the clock

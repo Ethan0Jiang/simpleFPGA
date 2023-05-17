@@ -37,25 +37,25 @@ module CLB(
     assign down_o   = out_sel[2] ? sig_out : up_i;
     assign right_o  = out_sel[1] ? sig_out : left_i;
     assign left_o   = out_sel[0] ? sig_out : right_i;
-//    assign lut_addr  = {up_i,down_i,right_i, left_i};
+    assign lut_addr  = {up_i,down_i,right_i, left_i};
     assign sig_out = o_mux_ctrl ? lut_out: ff_out;
 //    assign up = up_i ? 1:0;
 //	assign down = down_i ? 1:0;
 //	assign right = right_i ? 1:0;
 //	assign left = left_i ? 1:0;
-	always_comb begin
-		up = 0;
-		down = 0;
-		right = 0;
-		left = 0;
-		if (up_i) up = 1;
-		if (down_i) down = 1;
-		if (right_i) right = 1;
-		if (left_i) left = 1;
-	end
-
-
-	assign lut_addr  = {up,down,right, left};
+//	always_comb begin
+//		up = 0;
+//		down = 0;
+//		right = 0;
+//		left = 0;
+//		if (up_i) up = 1;
+//		if (down_i) down = 1;
+//		if (right_i) right = 1;
+//		if (left_i) left = 1;
+//	end
+//
+//
+//	assign lut_addr  = {up,down,right, left};
     always_comb begin
         lut_out = 0;
         case(lut_addr)
