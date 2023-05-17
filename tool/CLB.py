@@ -186,6 +186,6 @@ class LUT:
     #     else:
     #         self.mux_sel_bits[0] = 1
 
-#window = tk.Tk()
-#updot0 = LUT(window)
-#window.mainloop()
+window = tk.Tk()
+updot0 = LUT(window)
+window.mainloop()

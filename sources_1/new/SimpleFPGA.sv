@@ -13,7 +13,7 @@ module SimpleFPGA (
     // top row i:
     // cl_V_in[0]  sc_V_in[0][2:0]   cl_V_in[1]  sc_V_in[1][2:0]   cl_V_in[2]  sc_V_in[2][2:0]   cl_V_in[3]  sc_V_in[3][2:0]      
     // bottom row o;
-    // cl_V_out[0]                   l_V_out[1]                    l_V_out[2]                    l_V_out[3]                      
+    // cl_V_out[0]                   cl_V_out[1]                   cl_V_out[2]                   cl_V_out[3]                      
     logic [3:0][76:0] data_row;
     logic [3:0] col_en_o;
     
@@ -54,7 +54,7 @@ module SimpleFPGA (
                     .lc_V_o(),              // top
                     .lc_H_o(),              // left side
                     .cl_V_o(cl_V[row][col]),  
-                    .cl_H_o(lc_H[row][col]), 
+                    .cl_H_o(cl_H[row][col]), 
                     .sc_V_o(sc_V[row][col]),
                     .sc_H_o(sc_H[row][col])
                     );
@@ -72,7 +72,7 @@ module SimpleFPGA (
                     .lc_V_o(),              // top
                     .lc_H_o(lc_H[row][col-1]),// left side
                     .cl_V_o(cl_V[row][col]),  
-                    .cl_H_o(lc_H[row][col]), 
+                    .cl_H_o(cl_H[row][col]), 
                     .sc_V_o(sc_V[row][col]),
                     .sc_H_o(sc_H[row][col])
                     );
@@ -90,7 +90,7 @@ module SimpleFPGA (
                     .lc_V_o(lc_V[row-1][col]),
                     .lc_H_o(),              // left side
                     .cl_V_o(cl_V[row][col]),  
-                    .cl_H_o(lc_H[row][col]), 
+                    .cl_H_o(cl_H[row][col]), 
                     .sc_V_o(sc_V[row][col]),
                     .sc_H_o(sc_H[row][col])
                     );
@@ -108,7 +108,7 @@ module SimpleFPGA (
                     .lc_V_o(lc_V[row-1][col]),  
                     .lc_H_o(lc_H[row][col-1]),  
                     .cl_V_o(cl_V[row][col]),  
-                    .cl_H_o(lc_H[row][col]), 
+                    .cl_H_o(cl_H[row][col]), 
                     .sc_V_o(sc_V[row][col]),
                     .sc_H_o(sc_H[row][col])
                     );

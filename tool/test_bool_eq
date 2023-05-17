@@ -1,0 +1,14 @@
+def evaluate_boolean_eqn(eq_str):
+    inputs = [False, True] ############ maybe wrong here!!!!
+    output = []
+    for a in inputs:
+        for b in inputs:
+            for c in inputs:
+                for d in inputs:
+                    val = eval(eq_str)
+                    output.append(val)
+    output = [int(n) for n in output]
+    return output
+
+eqn = "b and c or a"
+print(evaluate_boolean_eqn(eqn))

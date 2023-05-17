@@ -23,7 +23,7 @@ module GlobalFSM #(parameter Dim = 4) (
                 else                    ns = S0;
             S1: if (count == 0)         ns = S2;
                 else                    ns = S1;
-            S2: if (col_num == Dim)     ns = S3;
+          S2: if (col_num == Dim-1)     ns = S3;
                 else                    ns = S1;
             S3: ns = S3;
         endcase

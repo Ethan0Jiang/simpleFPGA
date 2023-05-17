@@ -58,5 +58,5 @@ class SimpleFPGA:
 
 
 window = tk.Tk()
-simple = SimpleFPGA(window,3)
+simple = SimpleFPGA(window,4)
 window.mainloop()
